@@ -63,7 +63,7 @@ public class MapHelperModule {
 		Map<String,Double> probabilityDistributionMap = new HashMap<String,Double>();
 		for(String word : wordMap.keySet()){
 			probabilityDistributionMap.put(word, 
-					wordMap.get(word)/(total*0.1));
+					wordMap.get(word)/(total*1.0));
 		}
 		return probabilityDistributionMap;
 	}
