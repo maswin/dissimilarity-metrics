@@ -21,18 +21,39 @@
 
 package metrics;
 
-import java.util.List;
 import java.util.Map;
 
 import dissimilaritymetrics.MapMetric;
 
-public class JSDivergence implements MapMetric{
+public class JSDivergence extends MapMetric{
 
+	/**
+	 * Calculates the JSDivergence value of wordMap1 and wordMap2
+	 * 
+	 * @param wordMap1
+	 * 	Map with word and its frequency.
+	 * 
+	 * @param wordMap1Count
+	 * 	Sum of frequency of all words in wordMap1.
+	 * 
+	 *  @param wordMap2
+	 * 	Map with word and its frequency.
+	 * 
+	 * @param wordMap2Count
+	 * 	Sum of frequency of all words in wordMap1.
+	 * 
+	 * @return
+	 * 	JSDivergence value of wordMap1 and wordMap2.
+	 */
 	@Override
-	public double findDissimilarity(Map<String, Integer> a,
-			Map<String, Integer> b) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double findDissimilarity(Map<String, Integer> wordMap1, int wordMap1Count,
+			Map<String, Integer> wordMap2, int wordMap2Count) {
+		
+		KLDivergence klDiv = new KLDivergence();
+		double klDiv1 = klDiv.findDissimilarity(wordMap1, wordMap1Count, wordMap2, wordMap2Count);
+		double klDiv2 = klDiv.findDissimilarity(wordMap2, wordMap2Count, wordMap1, wordMap1Count);
+		
+		return (klDiv1 + klDiv2)/2;
 	}
 
 }

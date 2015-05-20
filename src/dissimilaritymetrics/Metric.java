@@ -21,10 +21,10 @@
 
 package dissimilaritymetrics;
 
-import java.util.List;
 
 
 public interface Metric <T>{
+	public static final double log2 = Math.log(2);
 	/**
 	 * Measures the dissimilarity between a and b.
 	 * 

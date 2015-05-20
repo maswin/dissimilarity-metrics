@@ -21,19 +21,17 @@
 
 package metrics;
 
-import java.util.List;
 import java.util.Map;
 
 import dissimilaritymetrics.MapMetric;
 
-public class QuadChiHistogramDistance implements MapMetric{
+public class QuadChiHistogramDistance extends MapMetric{
 
 	@Override
-	public double findDissimilarity(Map<String, Integer> a,
-			Map<String, Integer> b) {
+	public double findDissimilarity(Map<String, Integer> a, int aCount,
+			Map<String, Integer> b, int bCount) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 }

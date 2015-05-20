@@ -30,23 +30,44 @@ import metrics.QuadChiHistogramDistance;
 
 public class MetricAPI {
 	
+	//KLDivergence methods
 	public double findKLDivergence(Map<String, Integer> a,
 			Map<String, Integer> b){
 		return new KLDivergence().findDissimilarity(a, b);
 	}
+	public double findKLDivergence(Map<String, Integer> a,int aCount,
+			Map<String, Integer> b, int bCount){
+		return new KLDivergence().findDissimilarity(a, aCount, b, bCount);
+	}
 	
+	//JSDivergence methods
 	public double findJSDivergence(Map<String, Integer> a,
 			Map<String, Integer> b){
 		return new JSDivergence().findDissimilarity(a, b);
 	}
+	public double findJSDivergence(Map<String, Integer> a,int aCount,
+			Map<String, Integer> b,int bCount){
+		return new JSDivergence().findDissimilarity(a, aCount, b, bCount);
+	}
 	
+	//Earth Movers Distance
 	public double findEMD(Map<String, Integer> a,
 			Map<String, Integer> b){
 		return new EMD().findDissimilarity(a, b);
 	}
+	public double findEMD(Map<String, Integer> a, int aCount,
+			Map<String, Integer> b, int bCount){
+		return new EMD().findDissimilarity(a, aCount, b, bCount);
+	}
+	
+	//Quadratic Chi Histogram Distance
 	public double findQuadChiHistogramDistance(Map<String, Integer> a,
 			Map<String, Integer> b){
 		return new QuadChiHistogramDistance().findDissimilarity(a, b);
+	}
+	public double findQuadChiHistogramDistance(Map<String, Integer> a, int aCount,
+			Map<String, Integer> b, int bCount){
+		return new QuadChiHistogramDistance().findDissimilarity(a, aCount, b, bCount);
 	}
 	
 }

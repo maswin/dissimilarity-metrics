@@ -21,8 +21,25 @@
 
 package dissimilaritymetrics;
 
+import helpermodules.MapHelperModule;
+
+/**
+ * MapMetric gets Map<String,Integer> as input where the key is a String
+ * that represents the word and value is an Integer that represents the
+ * frequency of that word.
+ * 
+ */
 import java.util.Map;
 
-public interface MapMetric extends Metric<Map<String,Integer>>{
+public abstract class MapMetric implements Metric<Map<String,Integer>>{
 	
+	public abstract double findDissimilarity(Map<String,Integer> a, int aCount,
+			Map<String,Integer> b, int bCount);
+	
+	public double findDissimilarity(Map<String,Integer> a,
+			Map<String,Integer> b){
+		MapHelperModule m = new MapHelperModule();
+		return findDissimilarity(a, m.findTotalCount(a),
+				b,m.findTotalCount(b));
+	}
 }

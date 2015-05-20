@@ -21,18 +21,20 @@
 
 package metrics;
 
-import java.util.List;
+import helpermodules.MapHelperModule;
+
 import java.util.Map;
 
 import dissimilaritymetrics.MapMetric;
 
-public class EMD implements MapMetric{
-
+public class EMD extends MapMetric{
+	
 	@Override
-	public double findDissimilarity(Map<String, Integer> a,
-			Map<String, Integer> b) {
+	public double findDissimilarity(Map<String, Integer> a, int aCount,
+			Map<String, Integer> b, int bCount) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

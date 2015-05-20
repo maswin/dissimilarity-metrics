@@ -21,15 +21,50 @@
 
 package helpermodules;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MapHelperModule {
 	
-	public int findTotalCount(Map<String, Integer> a){
+	/**
+	 * Calculates the total number of words.
+	 * 
+	 * @param wordMap 
+	 * 	Map object a for which total number of words is to be found.
+	 * 
+	 * @return
+	 * 	Total number of words
+	 */
+	
+	public int findTotalCount(Map<String, Integer> wordMap){
 		int total = 0;
-		for (Integer value : a.values()) {
+		for (Integer value : wordMap.values()) {
 		    total += value;
 		}
 		return total;
+	}
+	
+	/**
+	 * Calculates the total number of words.
+	 * 
+	 * @param wordMap 
+	 * 	Map object a for which total number of words is to be found.
+	 * 
+	 * @param total
+	 * 	Sum of frequency of the words.
+	 * 
+	 * @return
+	 * 	Total number of words
+	 */
+	
+	public Map<String, Double> generateProbabilityDistributionMap(
+			Map<String, Integer> wordMap, int total){
+		
+		Map<String,Double> probabilityDistributionMap = new HashMap<String,Double>();
+		for(String word : wordMap.keySet()){
+			probabilityDistributionMap.put(word, 
+					wordMap.get(word)/(total*0.1));
+		}
+		return probabilityDistributionMap;
 	}
 }

@@ -21,19 +21,73 @@
 
 package metrics;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import dissimilaritymetrics.MapMetric;
+import helpermodules.MapHelperModule;
+public class KLDivergence extends MapMetric{
 
-public class KLDivergence implements MapMetric{
-
+	/**
+	 * Calculates the KLDivergence value of wordMap1 with respect to wordMap2
+	 * 
+	 * @param wordMap1
+	 * 	Map with word and its frequency.
+	 * 
+	 * @param wordMap1Count
+	 * 	Sum of frequency of all words in wordMap1.
+	 * 
+	 *  @param wordMap2
+	 * 	Map with word and its frequency.
+	 * 
+	 * @param wordMap2Count
+	 * 	Sum of frequency of all words in wordMap1.
+	 * 
+	 * @return
+	 * 	KLDivergence value of wordMap1 with respect to wordMap2.
+	 */
 	@Override
-	public double findDissimilarity(Map<String, Integer> a,
-			Map<String, Integer> b) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public double findDissimilarity(Map<String, Integer> wordMap1, int wordMap1Count,
+			Map<String, Integer> wordMap2, int wordMap2Count) {
 
+		//Combine words in both wordMaps
+		Map<String, Integer> combinedWordMap = new HashMap<String,Integer>();
+		combinedWordMap.putAll(wordMap1);
+		combinedWordMap.putAll(wordMap2);
+
+		//Create vocabulary list with all words
+		List<String> vocabulary = new ArrayList<String>();
+		Set<String> words = combinedWordMap.keySet();
+		for(String word : words){
+			vocabulary.add(word);
+		}
+
+		//Generate probability distribtuion for wordMaps
+		MapHelperModule m = new MapHelperModule();
+		Map<String,Double> probabilityDistributionMap1 = 
+				m.generateProbabilityDistributionMap(wordMap1, wordMap1Count);
+		Map<String,Double> probabilityDistributionMap2 = 
+				m.generateProbabilityDistributionMap(wordMap2, wordMap1Count);
+
+		//Calculate KLDivergence
+		double klDiv = 0.0;
+		for(String word : vocabulary){
+			double prob1 = 0.0;
+			double prob2 = 0.0;
+			if(probabilityDistributionMap1.containsKey(word))
+				prob1 = probabilityDistributionMap1.get(word);
+			if(probabilityDistributionMap2.containsKey(word))
+				prob2 = probabilityDistributionMap2.get(word);
+			if((prob1!=0.0) && (prob2!= 0.0))
+				klDiv += prob1 * Math.log( prob1 / prob2 );
+		}
+
+		klDiv /= log2;
+		return klDiv;
+	}
 
 }
