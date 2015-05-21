@@ -102,7 +102,7 @@ public class QuadChiHistogramDistance extends MapMetric{
 			if(probabilityDistributionMap1.containsKey(iWord))
 				iDistance += probabilityDistributionMap1.get(iWord);
 			if(probabilityDistributionMap2.containsKey(iWord))
-				iDistance += probabilityDistributionMap2.get(iWord);
+				iDistance -= probabilityDistributionMap2.get(iWord);
 			
 			for(int j=0;j<vocabulary.size();j++){
 				
@@ -111,7 +111,7 @@ public class QuadChiHistogramDistance extends MapMetric{
 				if(probabilityDistributionMap1.containsKey(jWord))
 					jDistance += probabilityDistributionMap1.get(jWord);
 				if(probabilityDistributionMap2.containsKey(jWord))
-					jDistance += probabilityDistributionMap2.get(jWord);
+					jDistance -= probabilityDistributionMap2.get(jWord);
 				
 				if(isSimilar(iWord, jWord)){					
 					double ikBase = 0.0;
@@ -126,12 +126,14 @@ public class QuadChiHistogramDistance extends MapMetric{
 							kDistance += probabilityDistributionMap2.get(kWord);
 						
 						if(isSimilar(iWord,kWord)){
-							ikBase += Math.pow(kDistance, n);
+							ikBase += kDistance;
 						}
 						if(isSimilar(jWord,kWord)){
-							jkBase += Math.pow(kDistance, n);
+							jkBase += kDistance;
 						}
-					}				
+					}
+					ikBase += Math.pow(ikBase, n);
+					jkBase += Math.pow(jkBase, n);
 					qChiDistance += (iDistance/ikBase)*(jDistance/jkBase);
 				}
 			}
