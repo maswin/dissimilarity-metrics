@@ -23,17 +23,72 @@ package metrics;
 
 import helpermodules.MapHelperModule;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import dissimilaritymetrics.MapMetric;
 
 public class EMD extends MapMetric{
-	
+
+	/**
+	 * Calculates Earth mover's distance of wordMap1 and wordMap2.
+	 * Assumption : D is an 1D array of bins.
+	 * 
+	 * @param wordMap1
+	 * 	Map with word and its frequency.
+	 * 
+	 * @param wordMap1Count
+	 * 	Sum of frequency of all words in wordMap1.
+	 * 
+	 *  @param wordMap2
+	 * 	Map with word and its frequency.
+	 * 
+	 * @param wordMap2Count
+	 * 	Sum of frequency of all words in wordMap1.
+	 * 
+	 * @return
+	 * 	Earth mover's distance of wordMap1 and wordMap2.
+	 */
 	@Override
-	public double findDissimilarity(Map<String, Integer> a, int aCount,
-			Map<String, Integer> b, int bCount) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double findDissimilarity(Map<String, Integer> wordMap1, int wordMap1Count,
+			Map<String, Integer> wordMap2, int wordMap2Count) {
+		//Combine words in both wordMaps
+		Map<String, Integer> combinedWordMap = new HashMap<String,Integer>();
+		combinedWordMap.putAll(wordMap1);
+		combinedWordMap.putAll(wordMap2);
+
+		//Create vocabulary list with all words
+		List<String> vocabulary = new ArrayList<String>();
+		Set<String> words = combinedWordMap.keySet();
+		for(String word : words){
+			vocabulary.add(word);
+		}
+
+		//Generate probability distribtuion for wordMaps
+		MapHelperModule m = new MapHelperModule();
+		Map<String,Double> probabilityDistributionMap1 = 
+				m.generateProbabilityDistributionMap(wordMap1, wordMap1Count);
+		Map<String,Double> probabilityDistributionMap2 = 
+				m.generateProbabilityDistributionMap(wordMap2, wordMap2Count);
+
+		//Calculate Earth mover's distance
+		double EMD = 0.0;
+		double totalDistance = 0.0;
+		for(String word : vocabulary){
+			double prob1 = 0.0;
+			double prob2 = 0.0;
+			if(probabilityDistributionMap1.containsKey(word))
+				prob1 = probabilityDistributionMap1.get(word);
+			if(probabilityDistributionMap2.containsKey(word))
+				prob2 = probabilityDistributionMap2.get(word);
+			totalDistance += EMD;
+			EMD = prob1 + EMD - prob2;
+		}
+
+		return Math.abs(totalDistance);
 	}
 
 
