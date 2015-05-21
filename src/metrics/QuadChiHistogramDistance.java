@@ -90,7 +90,7 @@ public class QuadChiHistogramDistance extends MapMetric{
 		Map<String,Double> probabilityDistributionMap1 = 
 				m.generateProbabilityDistributionMap(wordMap1, wordMap1Count);
 		Map<String,Double> probabilityDistributionMap2 = 
-				m.generateProbabilityDistributionMap(wordMap2, wordMap1Count);
+				m.generateProbabilityDistributionMap(wordMap2, wordMap2Count);
 		
 		//Calcualte qChiDistance
 		double qChiDistance = 0.0;
