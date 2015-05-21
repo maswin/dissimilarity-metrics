@@ -3,7 +3,7 @@
  * e.g. Jensen–Shannon(JS) divergence, (EMD) Earth movers distance,
  * Quadratic Chi histogram distance.
  *  
- * Copyright (C) 2015 Alagappan.M
+ * Copyright (C) 2015 dissimilarity-metrics authors
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
